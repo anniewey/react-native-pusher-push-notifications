@@ -53,6 +53,11 @@ public class PusherWrapper {
         Log.i("PUSHER_WRAPPER", "onResume subscribing with activity " + getActivityName(activity));
         System.out.print("onResume subscribing with activity " + getActivityName(activity));
 
+        if (activity == null) {
+            Log.w("PUSHER_WRAPPER", "onResume called with null activity");
+            return;
+        }
+
         PushNotifications.setOnMessageReceivedListenerForVisibleActivity(
                 activity,
                 new PushNotificationReceivedListener() {
@@ -105,6 +110,7 @@ public class PusherWrapper {
     }
 
     private String getActivityName(Activity activity) {
+        if (activity == null) return "null activity";
         return activity.getClass().getSimpleName();
     }
 
